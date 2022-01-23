@@ -5,9 +5,6 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721UR
 import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
-
-
-
 contract GameItem is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
@@ -22,7 +19,7 @@ contract GameItem is ERC721URIStorage, Ownable {
 
     // for opensea collection 
     function contractURI() public pure returns (string memory) {
-        return "https://ipfs.io/ipfs/your-collection-ipfshash";
+        return "https://ipfs.io/ipfs/QmNXBVQWYpmXn2kvm2VvX3RsDTDJ4dkLbF283foWofqENC";
     }
 
     

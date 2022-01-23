@@ -10,8 +10,8 @@ const API_KEY = process.env.NODE_KEY
 
 
 //* Remember to write the nft address in manually after deploying the contract
-const NFT_CONTRACT_ADDRESS = ""
-const OWNER_ADDRESS = "";
+const NFT_CONTRACT_ADDRESS = "0x39fdc4c8530942B468c79a47Ad1A5AEDd7b0D5Be"
+const OWNER_ADDRESS = "0x6500041c70Fc65bb5a728dcAF5db2362e5799f9C";
 const MUMBAI = `https://rpc-mumbai.maticvigil.com/v1/${API_KEY}`
 const MATIC = `https://rpc-mainnet.maticvigil.com/v1/${API_KEY}`
 const NUM_ITEMS = 5;
@@ -41,7 +41,7 @@ async function main() {
 
       //* just mint 
     await nftContract.methods
-      .mintItem(OWNER_ADDRESS, `your token json uri`)
+      .mintItem(OWNER_ADDRESS,"https://ipfs.io/ipfs/QmZrRSaCERJQYVdwAM678QRTT5Zc1VSb75o1Uj8FTJJsaW")
       .send({ from: OWNER_ADDRESS }).then(console.log('minted')).catch(error => console.log(error));
 
 

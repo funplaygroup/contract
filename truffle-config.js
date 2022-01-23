@@ -34,30 +34,31 @@ module.exports = {
    */
 
   networks: {
-    development: {
-      host: "localhost",
-      port: 7545,
-      gas: 5000000,
-      network_id: "*", // Match any network id
-    },
+    // development: {
+    //   host: "localhost",
+    //   port: 7545,
+    //   gas: 5000000,
+    //   network_id: "*", // Match any network id
+    // },
     mumbai: {
       provider: function () {
         return new HDWalletProvider(MNEMONIC, `https://rpc-mumbai.maticvigil.com/v1/${API_KEY}`);
+        //https://rpc-mumbai.maticvigil.com/v1/3ff0a5127d570fa6891807ec60ae27cdbf5f963a
       },
       network_id: 80001,
       confirmations: 2,
       skipDryRun: true
 
     },
-    matic: {
-      provider: function () {
-        return new HDWalletProvider(MNEMONIC, `https://rpc-mainnet.maticvigil.com/v1/${API_KEY}`);
-      },
-      network_id: 137,
-      gas: 5000000,
-      gasPrice: 5000000000,
-      confirmations: 2,
-    },
+    // matic: {
+    //   provider: function () {
+    //     return new HDWalletProvider(MNEMONIC, `https://rpc-mainnet.maticvigil.com/v1/${API_KEY}`);
+    //   },
+    //   network_id: 137,
+    //   gas: 5000000,
+    //   gasPrice: 5000000000,
+    //   confirmations: 2,
+    // },
   },
 
   // Set default mocha options here, use special reporters etc.
