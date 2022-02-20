@@ -8,7 +8,7 @@ Clone this repo.
 Run `npm install` in terminal.
 Place Matic RPC node key and Wallet Mnemonic in new .env file
 Upload some nft metadata to an api. I used IPFS.
-Place link to NFT Collection.json in contractURI method, under GameItem.sol. 
+Place link to NFT Collection.json in contractURI method, under FunPlayNFT.sol. 
 Deploy the contracts with `truffle develop` then `migrate --network mumbai` in the terminal, then copy the contract address.
 Add your account address, contract address and token json link to the mint script.
 Enter `node scripts/mint.js` into the console to mint.

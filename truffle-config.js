@@ -40,15 +40,30 @@ module.exports = {
     //   gas: 5000000,
     //   network_id: "*", // Match any network id
     // },
+    rinkeby: {
+      provider: function () {
+        return new HDWalletProvider(MNEMONIC,   `https://rinkeby.infura.io/v3/${API_KEY}`);
+      },
+      network_id: 4,
+      confirmations: 2,
+      skipDryRun: true
+    },
+    ropsten: {
+      provider: function () {
+        return new HDWalletProvider(MNEMONIC,   `https://ropsten.infura.io/v3/${API_KEY}`);
+      },
+      network_id: 3,
+      confirmations: 2,
+      skipDryRun: true
+    },
+
     mumbai: {
       provider: function () {
-        return new HDWalletProvider(MNEMONIC, `https://rpc-mumbai.maticvigil.com/v1/${API_KEY}`);
-        //https://rpc-mumbai.maticvigil.com/v1/3ff0a5127d570fa6891807ec60ae27cdbf5f963a
+        return new HDWalletProvider(MNEMONIC,   `https://rpc-mumbai.maticvigil.com/v1/${API_KEY}`);
       },
       network_id: 80001,
       confirmations: 2,
       skipDryRun: true
-
     },
     // matic: {
     //   provider: function () {

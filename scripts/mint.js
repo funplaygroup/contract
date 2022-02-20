@@ -10,15 +10,18 @@ const API_KEY = process.env.NODE_KEY
 
 
 //* Remember to write the nft address in manually after deploying the contract
-const NFT_CONTRACT_ADDRESS = "0x39fdc4c8530942B468c79a47Ad1A5AEDd7b0D5Be"
-const OWNER_ADDRESS = "0x6500041c70Fc65bb5a728dcAF5db2362e5799f9C";
+const NFT_CONTRACT_ADDRESS = "0x3C9Dd7589d47b688A96a4D9aD578458a6BAb5768";
+const OWNER_ADDRESS = "0x54CBc2F616Fa45617f484e4D7bDC898F52069bc5";
 const MUMBAI = `https://rpc-mumbai.maticvigil.com/v1/${API_KEY}`
 const MATIC = `https://rpc-mainnet.maticvigil.com/v1/${API_KEY}`
+const Ropsten = `https://ropsten.infura.io/v3/${API_KEY}`
+const Rinkeby = `https://ropsten.infura.io/v3/${API_KEY}`
+
 const NUM_ITEMS = 5;
 
 
 //*Parse the contract artifact for ABI reference.
-let rawdata = fs.readFileSync(path.resolve(__dirname, "../build/contracts/GameItem.json"));
+let rawdata = fs.readFileSync(path.resolve(__dirname, "../build/contracts/FunPlayNFT.json"));
 let contractAbi = JSON.parse(rawdata);
 const NFT_ABI = contractAbi.abi
 
@@ -28,7 +31,7 @@ async function main() {
     //*define web3, contract and wallet instances
     const provider = new HDWalletProvider(
       MNEMONIC,
-      MUMBAI
+      Rinkeby
     );
 
     const web3Instance = new web3(provider);
@@ -37,12 +40,69 @@ async function main() {
       NFT_ABI,
       NFT_CONTRACT_ADDRESS,
     );
+    // // reveal
+    await nftContract.methods.revealNow().send({ from: OWNER_ADDRESS })
+    .on('transactionHash', function(hash){
+      console.log('tx hash:', hash);
+    })  
+    .then(console.log('reveal now'))
+    .catch(error => console.log(error));
 
+    // // check reveal value
+    await nftContract.methods.reveal().call({ from: OWNER_ADDRESS })
+    .then(function(result){
+      console.log("reveal value:",result);
+    })
+    .catch(error => console.log(error));
+
+
+    // // active contract
+    await nftContract.methods.setIsActive(true).send({ from: OWNER_ADDRESS })
+    .on('transactionHash', function(hash){
+      console.log('tx hash:', hash);
+    })
+    .then(console.log('set contract active'))
+    .catch(error => console.log(error));
+    
+    await nftContract.methods.isActive().call({ from: OWNER_ADDRESS })
+    .then(function(result){
+      console.log("isActive value:",result);
+    })
+    .catch(error => console.log(error));
+
+    await nftContract.methods.setPresaleActive(true).send({ from: OWNER_ADDRESS })
+    .on('transactionHash', function(hash){
+      console.log('tx hash:', hash);
+    })
+    .then(console.log('set presale active'))
+    .catch(error => console.log(error));
+
+    await nftContract.methods.isPresaleActive().call({ from: OWNER_ADDRESS })
+    .then(function(result){
+      console.log("isPresaleActive value:",result);
+    })
+    .catch(error => console.log(error));
+
+    // mintNFT
+    await nftContract.methods.mintNFTDuringPresale(1).send({ from: OWNER_ADDRESS, value: 50000000000000000})
+    .on('transactionHash', function(hash){
+      console.log('tx hash:', hash);
+    })
+    .then(console.log('mint nft'))
+    .catch(error => console.log(error));
+
+    // console.log("result:",result);
+    // result object contains import information about the transaction
+    // console.log("Value was set to", result);
+
+    // await nftContract.methods
+    //   .revealNow()
+    //   .then(console.log('minted')).catch(error => console.log(error));
 
       //* just mint 
-    await nftContract.methods
-      .mintItem(OWNER_ADDRESS,"https://ipfs.io/ipfs/QmZrRSaCERJQYVdwAM678QRTT5Zc1VSb75o1Uj8FTJJsaW")
-      .send({ from: OWNER_ADDRESS }).then(console.log('minted')).catch(error => console.log(error));
+    // await nftContract.methods
+    //   .mintItem(OWNER_ADDRESS,"https://ipfs.io/ipfs/QmZrRSaCERJQYVdwAM678QRTT5Zc1VSb75o1Uj8FTJJsaW")
+    //   .send({ from: OWNER_ADDRESS }).then(console.log('minted')).catch(error => console.log(error));
 
 
     //* mint for a certain amount
@@ -54,7 +114,6 @@ async function main() {
     }
     */
   }
-  
   catch (e) {
     console.log(e)
   }
